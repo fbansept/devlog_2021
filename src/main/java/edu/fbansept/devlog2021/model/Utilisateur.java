@@ -6,6 +6,7 @@ import edu.fbansept.devlog2021.view.CustomJsonView;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,7 +35,7 @@ public class Utilisateur {
             name = "utilisateur_role",
             joinColumns = @JoinColumn(name = "utilisateur_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> listeRole;
+    private List<Role> listeRole = new ArrayList<>();
 
     @ManyToMany
     @JsonView({CustomJsonView.VueUtilisateur.class})
@@ -42,7 +43,7 @@ public class Utilisateur {
             name = "utilisateur_competence",
             joinColumns = @JoinColumn(name = "utilisateur_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "competence_id", referencedColumnName = "id"))
-    private List<Competence> listeCompetence;
+    private List<Competence> listeCompetence = new ArrayList<>();
 
     public List<Role> getListeRole() {
         return listeRole;

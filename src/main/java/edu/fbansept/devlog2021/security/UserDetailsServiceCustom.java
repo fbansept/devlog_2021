@@ -16,10 +16,13 @@ public class UserDetailsServiceCustom implements UserDetailsService {
     UtilisateurDao utilisateurDao;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String loginSaisi) throws UsernameNotFoundException {
 
-        Utilisateur utilisateur = utilisateurDao.findByLogin(s);
+        Utilisateur utilisateur = utilisateurDao
+                .findByLogin(loginSaisi)
+                .orElseThrow(() -> new UsernameNotFoundException(loginSaisi + " inconnu"));
 
         return new UserDetailsCustom(utilisateur);
+
     }
 }
