@@ -9,7 +9,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 public class Devlog2021Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Devlog2021Application.class, args);
+		try {
+			SpringApplication.run(Devlog2021Application.class, args);
+		} catch (Exception e) {
+			System.out.println("erreur");
+		}
+
 	}
 
 }

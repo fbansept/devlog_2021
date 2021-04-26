@@ -9,6 +9,7 @@ import edu.fbansept.devlog2021.security.JwtUtil;
 import edu.fbansept.devlog2021.security.UserDetailsServiceCustom;
 import edu.fbansept.devlog2021.view.CustomJsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +35,9 @@ public class UtilisateurController {
     private UserDetailsServiceCustom userDetailsServiceCustom;
     private PasswordEncoder passwordEncoder;
 
+    @Value("${message.erreur}")
+    private String messageErreur;
+
     @Autowired
     UtilisateurController(
             UtilisateurDao utilisateurDao,
@@ -50,7 +54,7 @@ public class UtilisateurController {
     }
 
     @PostMapping("/authentification")
-    public ResponseEntity<String> authentification(@RequestBody Utilisateur utilisateur) {
+    public ResponseEntity<String> authentification(@RequestBody Utilisateur utilisateur) throws Exception {
 
         try {
             authenticationManager.authenticate(
@@ -59,7 +63,7 @@ public class UtilisateurController {
                     )
             );
         } catch (AuthenticationException e) {
-            return ResponseEntity.badRequest().body("Mauvais login ou mot de passe");
+            return ResponseEntity.badRequest().body(messageErreur);
         }
 
         UserDetails userDetails = this.userDetailsServiceCustom.loadUserByUsername(utilisateur.getLogin());

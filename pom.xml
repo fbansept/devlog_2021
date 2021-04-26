@@ -55,9 +55,53 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>developpeur</id>
+			<properties>
+				<server_port>8080</server_port>
+				<database_host>localhost</database_host>
+				<database_port>3306</database_port>
+				<database_name>devlog2021</database_name>
+				<database_username>root</database_username>
+				<database_password></database_password>
+				<jwt_secret>azerty123</jwt_secret>
+				<message_erreur>Tu t'es trompé</message_erreur>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>prod</id>
+			<properties>
+				<server_port>8080</server_port>
+				<database_host>123.456.789.123</database_host>
+				<database_port>3306</database_port>
+				<database_name>spring_prod</database_name>
+				<database_username>super-admin</database_username>
+				<database_password>gv4q65e44esdsqgv</database_password>
+				<jwt_secret>qsd5qsd46gv46qdfqb</jwt_secret>
+			</properties>
+		</profile>
+
+	</profiles>
+
 	<build>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
