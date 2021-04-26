@@ -109,6 +109,7 @@ public class UtilisateurController {
     @JsonView(CustomJsonView.VueUtilisateur.class)
     @GetMapping("/user/utilisateurs")
     public ResponseEntity<List<Utilisateur>> getUtilisateurs () {
+
         return ResponseEntity.ok(utilisateurDao.findAll());
     }
 
